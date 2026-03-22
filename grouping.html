@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Division - Sharing</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Back to Menu Button -->
+        <a href="index.html" class="back-button">← Back to Menu</a>
+        
+        <h1>Sharing: Divide Items into Equal Groups</h1>
+        <p>Drag the pencils into the empty columns to share them equally!</p>
+        
+        <!-- Controls -->
+        <div class="controls">
+            <label for="item-count-sharing">Number of pencils:</label>
+            <input type="number" id="item-count-sharing" min="1" max="30" value="10">
+            
+            <label for="group-count-sharing">Number of groups:</label>
+            <input type="number" id="group-count-sharing" min="1" max="10" value="3">
+            
+            <button id="reset-sharing">Reset</button>
+        </div>
+        
+        <!-- Draggable Items -->
+        <div id="sharing-items" class="item-container"></div>
+        
+        <!-- Empty Groups/Columns -->
+        <div id="sharing-groups" class="group-container"></div>
+        
+        <!-- Result -->
+        <div id="sharing-result" class="result"></div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
