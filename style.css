@@ -13,7 +13,8 @@ body {
 }
 
 .container {
-    max-width: 1200px;
+    max-width: 100%; /* 🔥 Remove max-width restriction for full screen width */
+    width: 100%;     /* 🔥 Force container to take full screen width */
     margin: 0 auto;
     background: white;
     padding: 30px;
@@ -36,6 +37,7 @@ h2, h3 {
 .menu-container {
     text-align: center;
     padding: 50px 30px;
+    max-width: 800px; /* Keep menu container narrow for better UX */
 }
 
 .menu-subtitle {
@@ -98,6 +100,9 @@ h2, h3 {
     gap: 15px;
     align-items: center;
     flex-wrap: wrap;
+    max-width: 800px; /* Keep controls centered (optional) */
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .controls label {
@@ -126,34 +131,37 @@ h2, h3 {
 }
 
 /* -------------------------- */
-/* UPDATED SHARING SECTION */
+/* FINAL FIX: SHARING SECTION */
 /* -------------------------- */
 .item-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 15px; /* Slightly bigger gap for larger pencils */
-    margin: 20px 0;
-    min-height: 100px; /* Taller container for larger pencils */
+    gap: 15px;
+    margin: 20px auto; /* Center pencils container */
+    min-height: 100px;
     align-items: center;
-    justify-content: center; /* Center pencils horizontally */
+    justify-content: center;
+    max-width: 90%; /* Prevent pencils from overflowing */
 }
 
-/* UPDATED: Group container fills full width, equal spacing */
+/* 🔥 Critical Fix: Full width + center columns */
 .group-container {
     display: flex;
-    gap: 2%; /* Use percentage gap for responsive spacing */
-    margin: 30px 0;
-    min-height: 200px; /* Taller for larger pencils */
-    width: 100%; /* Force full width */
-    justify-content: space-between; /* Distribute columns evenly */
+    gap: 2rem; /* Generous spacing between columns */
+    margin: 30px auto; /* Center the entire column set */
+    min-height: 200px;
+    width: 95%; /* Use 95% of screen width (leaves small margins) */
+    max-width: 1200px; /* Cap width on very large screens */
+    justify-content: center; /* 🔥 Center columns (key fix!) */
+    align-items: flex-start;
 }
 
-/* UPDATED: Columns flex to fill width (adapts to number of groups) */
+/* 🔥 Critical Fix: Equal width columns that spread */
 .group {
-    flex: 1; /* Each column takes equal space */
-    min-width: 60px; /* Prevent columns from being too narrow */
-    max-width: 150px; /* Prevent columns from being too wide */
-    height: 200px; /* Taller for larger pencils */
+    flex: 1; /* Equal width for all columns */
+    min-width: 80px; /* Minimum width (prevents tiny columns) */
+    max-width: 200px; /* Maximum width (prevents overly wide columns) */
+    height: 200px;
     border: 2px dashed #3498db;
     border-radius: 8px;
     display: flex;
@@ -164,19 +172,19 @@ h2, h3 {
     gap: 10px;
 }
 
-/* UPDATED: Larger pencil icons with transparent background */
+/* Larger transparent pencils */
 .item {
-    width: 80px; /* Larger width */
-    height: 80px; /* Larger height */
-    background-color: transparent; /* Transparent background */
-    color: #e74c3c; /* Red pencil color */
-    border: none; /* Remove border */
-    border-radius: 0; /* Remove rounded corners (optional) */
+    width: 80px;
+    height: 80px;
+    background-color: transparent;
+    color: #e74c3c;
+    border: none;
+    border-radius: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: grab;
-    font-size: 50px; /* Enlarge pencil icon */
+    font-size: 50px;
     transition: transform 0.2s;
 }
 
@@ -221,7 +229,7 @@ h2, h3 {
     left: 0;
     width: 100%;
     height: 100%;
-    pointer-events: none; /* Allow clicking through to items */
+    pointer-events: none;
     z-index: 0;
 }
 
@@ -240,12 +248,14 @@ h2, h3 {
 
 /* Result Section */
 .result {
-    margin-top: 20px;
+    margin: 20px auto;
     padding: 15px;
     background-color: #ecf0f1;
     border-radius: 8px;
     font-size: 18px;
     font-weight: bold;
+    max-width: 800px;
+    width: 90%;
 }
 
 /* Responsive Design */
@@ -253,17 +263,23 @@ h2, h3 {
     .controls {
         flex-direction: column;
         align-items: flex-start;
+        width: 90%;
     }
     
-    /* Keep group columns responsive on mobile */
     .group-container {
-        gap: 1%;
+        gap: 1rem; /* Smaller gap on mobile */
+        width: 98%; /* Use more screen width on mobile */
     }
     
     .item {
-        font-size: 40px; /* Slightly smaller pencils on mobile */
+        font-size: 40px;
         width: 70px;
         height: 70px;
+    }
+    
+    .group {
+        min-width: 70px;
+        max-width: 150px;
     }
     
     .menu-buttons {
