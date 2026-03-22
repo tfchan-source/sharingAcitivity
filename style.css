@@ -160,7 +160,7 @@ h2, h3 {
 .group {
     flex: 1; /* Equal width for all columns */
     min-width: 80px; /* Minimum width (prevents tiny columns) */
-    max-width: 200px; /* Maximum width (prevents overly wide columns) */
+    max-width: 250px; /* Maximum width (prevents overly wide columns) */
     height: 200px;
     border: 2px dashed #3498db;
     border-radius: 8px;
@@ -170,7 +170,12 @@ h2, h3 {
     justify-content: flex-start;
     padding: 15px;
     gap: 10px;
+    min-height: 100px; /* Minimum height (empty state) */
+    width: fit-content; /* Width set by JS, but fallback to content */
+    max-height: 80vh; /* Max height = 80% of screen (prevents overflow) */
+    overflow-y: auto; /* Scroll if content exceeds max height */
 }
+
 
 /* Larger transparent pencils */
 .item {
