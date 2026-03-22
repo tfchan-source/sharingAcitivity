@@ -1,12 +1,36 @@
+
 // --------------------------
-// SHARE SECTION (DRAG & DROP)
+// SHARE SECTION (DRAG & DROP) + DYNAMIC COLUMN WIDTH + GROUP COUNTERS
 // --------------------------
 let sharingItems = [];
 let sharingGroups = [];
 
-// Initialize sharing section (only runs on sharing.html)
+// Calculate dynamic column width (updated for horizontal layout)
+function calculateDynamicColumnWidth(groupCount) {
+    // For horizontal layout (2 pencils per row), width = 2 pencils + gap
+    const pencilWidth = 80; // Pencil width (matches CSS)
+    const gapBetweenPencils = 10; // Gap inside group (matches CSS)
+    const groupWidth = (pencilWidth * 2) + gapBetweenPencils;
+    
+    // Optional: Ensure groups don't get too wide on large screens
+    const maxGroupWidth = window.innerWidth * 0.2; // Max 20% of screen width per group
+    return Math.min(groupWidth, maxGroupWidth);
+}
+
+// 🔥 New: Update group counter display
+function updateGroupCounters() {
+    // Loop through each group and update its counter
+    sharingGroups.forEach((group, index) => {
+        const counterElement = document.querySelector(`.group[data-index="${index}"] + .group-counter`);
+        if (counterElement) {
+            counterElement.textContent = `Count: ${group.length}`;
+        }
+    });
+}
+
+// Initialize sharing section with dynamic columns + counters
 function initSharing() {
-    if (!document.getElementById('sharing-items')) return; // Skip if not on sharing page
+    if (!document.getElementById('sharing-items')) return;
     
     const itemCount = parseInt(document.getElementById('item-count-sharing').value) || 10;
     const groupCount = parseInt(document.getElementById('group-count-sharing').value) || 3;
@@ -21,6 +45,13 @@ function initSharing() {
     itemsContainer.innerHTML = '';
     groupsContainer.innerHTML = '';
     document.getElementById('sharing-result').textContent = '';
+    
+    // Calculate dynamic column width
+    const columnWidth = calculateDynamicColumnWidth(groupCount);
+    const gapBetweenColumns = window.innerWidth * 0.015; // 1.5% of screen width
+    
+    // Set gap for the group container (CSS gap property)
+    groupsContainer.style.gap = `${gapBetweenColumns}px`;
     
     // Create draggable items (pencils)
     for (let i = 1; i <= itemCount; i++) {
@@ -39,17 +70,29 @@ function initSharing() {
         item.addEventListener('dragend', () => {
             item.classList.remove('dragging');
             updateSharingResult();
+            updateGroupCounters(); // 🔥 Update counters after drag
         });
         
         itemsContainer.appendChild(item);
         sharingItems.push(i);
     }
     
-    // Create empty groups/columns
+    // Create dynamic columns (with calculated width) + counters
     for (let i = 0; i < groupCount; i++) {
+        // Create group wrapper (to hold group + counter)
+        const groupWrapper = document.createElement('div');
+        groupWrapper.className = 'group-wrapper';
+        groupWrapper.style.display = 'flex';
+        groupWrapper.style.flexDirection = 'column';
+        groupWrapper.style.alignItems = 'center';
+        
+        // Create group element
         const group = document.createElement('div');
         group.className = 'group';
         group.dataset.index = i;
+        
+        // Set dynamic width (calculated from screen size + group count)
+        group.style.width = `${columnWidth}px`;
         
         // Allow drop
         group.addEventListener('dragover', (e) => {
@@ -71,12 +114,25 @@ function initSharing() {
                 sharingGroups[groupIndex].push(itemId);
                 
                 // Append item to group in DOM
-                itemElement.draggable = false; // Prevent re-dragging
+                itemElement.draggable = false;
                 group.appendChild(itemElement);
+                
+                // 🔥 Update counter immediately after drop
+                updateGroupCounters();
             }
         });
         
-        groupsContainer.appendChild(group);
+        // 🔥 Create counter element for the group
+        const counter = document.createElement('div');
+        counter.className = 'group-counter';
+        counter.textContent = `Count: 0`; // Initial count = 0
+        
+        // Add group + counter to wrapper
+        groupWrapper.appendChild(group);
+        groupWrapper.appendChild(counter);
+        
+        // Add wrapper to groups container
+        groupsContainer.appendChild(groupWrapper);
     }
 }
 
