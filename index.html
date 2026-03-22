@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Primary Math - Division Learning</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Learn Division: Sharing & Grouping</h1>
+
+        <!-- Section 1: Sharing (Drag items into groups) -->
+        <section class="sharing-section">
+            <h2>1. Sharing: Divide Items into Groups</h2>
+            <p>Drag the pencils into the empty columns to share them equally!</p>
+            
+            <!-- Controls for sharing section -->
+            <div class="controls">
+                <label for="item-count-sharing">Number of pencils:</label>
+                <input type="number" id="item-count-sharing" min="1" max="30" value="10">
+                
+                <label for="group-count-sharing">Number of groups:</label>
+                <input type="number" id="group-count-sharing" min="1" max="10" value="3">
+                
+                <button id="reset-sharing">Reset</button>
+            </div>
+            
+            <!-- Items to drag -->
+            <div id="sharing-items" class="item-container"></div>
+            
+            <!-- Empty columns/groups -->
+            <div id="sharing-groups" class="group-container"></div>
+            
+            <!-- Result display -->
+            <div id="sharing-result" class="result"></div>
+        </section>
+
+        <hr>
+
+        <!-- Section 2: Grouping (Make groups of fixed size) -->
+        <section class="grouping-section">
+            <h2>2. Grouping: Make Groups of Fixed Size</h2>
+            <p>Click on erasers to select them (make groups of the set size)!</p>
+            
+            <!-- Controls for grouping section -->
+            <div class="controls">
+                <label for="item-count-grouping">Total erasers:</label>
+                <input type="number" id="item-count-grouping" min="1" max="50" value="20">
+                
+                <label for="items-per-group">Erasers per group:</label>
+                <input type="number" id="items-per-group" min="1" max="10" value="3">
+                
+                <button id="reset-grouping">Reset</button>
+            </div>
+            
+            <!-- Items to select for grouping -->
+            <div id="grouping-items" class="item-container"></div>
+            
+            <!-- Result display -->
+            <div id="grouping-result" class="result"></div>
+        </section>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
