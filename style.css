@@ -125,36 +125,58 @@ h2, h3 {
     background-color: #c0392b;
 }
 
-/* Sharing Section Styles */
+/* -------------------------- */
+/* UPDATED SHARING SECTION */
+/* -------------------------- */
 .item-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 15px; /* Slightly bigger gap for larger pencils */
     margin: 20px 0;
-    min-height: 80px;
+    min-height: 100px; /* Taller container for larger pencils */
     align-items: center;
+    justify-content: center; /* Center pencils horizontally */
 }
 
+/* UPDATED: Group container fills full width, equal spacing */
 .group-container {
     display: flex;
-    gap: 15px;
-    margin: 20px 0;
-    min-height: 150px;
-    flex-wrap: wrap;
+    gap: 2%; /* Use percentage gap for responsive spacing */
+    margin: 30px 0;
+    min-height: 200px; /* Taller for larger pencils */
+    width: 100%; /* Force full width */
+    justify-content: space-between; /* Distribute columns evenly */
 }
 
-.item {
-    width: 60px;
-    height: 60px;
-    background-color: #e74c3c;
-    color: white;
+/* UPDATED: Columns flex to fill width (adapts to number of groups) */
+.group {
+    flex: 1; /* Each column takes equal space */
+    min-width: 60px; /* Prevent columns from being too narrow */
+    max-width: 150px; /* Prevent columns from being too wide */
+    height: 200px; /* Taller for larger pencils */
+    border: 2px dashed #3498db;
     border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 15px;
+    gap: 10px;
+}
+
+/* UPDATED: Larger pencil icons with transparent background */
+.item {
+    width: 80px; /* Larger width */
+    height: 80px; /* Larger height */
+    background-color: transparent; /* Transparent background */
+    color: #e74c3c; /* Red pencil color */
+    border: none; /* Remove border */
+    border-radius: 0; /* Remove rounded corners (optional) */
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: grab;
-    font-weight: bold;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    font-size: 50px; /* Enlarge pencil icon */
     transition: transform 0.2s;
 }
 
@@ -163,20 +185,9 @@ h2, h3 {
     transform: scale(0.95);
 }
 
-.group {
-    width: 80px;
-    height: 150px;
-    border: 2px dashed #3498db;
-    border-radius: 8px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 10px;
-    gap: 5px;
-}
-
-/* Enhanced Grouping Styles */
+/* -------------------------- */
+/* GROUPING SECTION (UNCHANGED) */
+/* -------------------------- */
 #grouping-container {
     position: relative;
     min-height: 100px;
@@ -244,8 +255,15 @@ h2, h3 {
         align-items: flex-start;
     }
     
+    /* Keep group columns responsive on mobile */
     .group-container {
-        justify-content: center;
+        gap: 1%;
+    }
+    
+    .item {
+        font-size: 40px; /* Slightly smaller pencils on mobile */
+        width: 70px;
+        height: 70px;
     }
     
     .menu-buttons {
