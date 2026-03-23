@@ -215,9 +215,9 @@ h2, h3 {
 }
 
 .grouping-item {
-    width: 60px;
-    height: 60px;
-    background-color: #9b59b6;
+    width: 80px;
+    height: 80px;
+    background-color: transparent;
     color: white;
     border-radius: 8px;
     display: flex;
