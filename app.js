@@ -148,11 +148,11 @@ function updateSharingResult() {
     let isComplete = currentDistribution.reduce((sum, count) => sum + count, 0) === totalItems-remainder;
     
     let resultText = '';
-    if (isComplete) {
-        resultText = `Perfect! Each group has ${itemsPerGroup} pencils, with ${remainder} left over.`;
-    } else {
-        resultText = `You need to distribute all ${totalItems} pencils into ${totalGroups} groups.`;
-    }
+    // if (isComplete) {
+    //     resultText = `Perfect! Each group has ${itemsPerGroup} pencils, with ${remainder} left over.`;
+    // } else {
+    //     resultText = `You need to distribute all ${totalItems} pencils into ${totalGroups} groups.`;
+    // }
     
     document.getElementById('sharing-result').textContent = resultText;
 }
