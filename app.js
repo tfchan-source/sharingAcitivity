@@ -189,7 +189,7 @@ function initGrouping() {
     for (let i = 1; i <= itemCount; i++) {
         const item = document.createElement('div');
         item.className = 'grouping-item';
-        item.textContent = '🧼';
+        item.textContent = '🏀';
         item.dataset.id = i;
         
         // Click event to select/deselect
@@ -293,13 +293,13 @@ function updateGroupingResult(itemsPerGroup) {
     const totalRemainder = totalItems % itemsPerGroup;
     
     let resultText = '';
-    if (selectedCount === totalItems) {
-        resultText = `Great! You made ${fullGroups} complete groups (${itemsPerGroup} erasers each), with ${totalRemainder} erasers left over. (Total: ${totalItems} ÷ ${itemsPerGroup} = ${totalPossibleGroups} remainder ${totalRemainder})`;
-    } else if (selectedCount === 0) {
-        resultText = `Click on erasers to select them and make groups of ${itemsPerGroup}!`;
-    } else {
-        resultText = `You've selected ${selectedCount} erasers. That makes ${fullGroups} complete groups (${itemsPerGroup} erasers each) with ${leftoverSelected} extra. Select all ${totalItems} erasers to see the full result!`;
-    }
+    // if (selectedCount === totalItems) {
+    //     resultText = `Great! You made ${fullGroups} complete groups (${itemsPerGroup} erasers each), with ${totalRemainder} erasers left over. (Total: ${totalItems} ÷ ${itemsPerGroup} = ${totalPossibleGroups} remainder ${totalRemainder})`;
+    // } else if (selectedCount === 0) {
+    //     resultText = `Click on erasers to select them and make groups of ${itemsPerGroup}!`;
+    // } else {
+    //     resultText = `You've selected ${selectedCount} erasers. That makes ${fullGroups} complete groups (${itemsPerGroup} erasers each) with ${leftoverSelected} extra. Select all ${totalItems} erasers to see the full result!`;
+    // }
     
     document.getElementById('grouping-result').textContent = resultText;
 }
