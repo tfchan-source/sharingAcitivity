@@ -1,4 +1,3 @@
-
 // --------------------------
 // SHARE SECTION (DRAG & DROP) + DYNAMIC COLUMN WIDTH + GROUP COUNTERS
 // --------------------------
@@ -148,11 +147,11 @@ function updateSharingResult() {
     let isComplete = currentDistribution.reduce((sum, count) => sum + count, 0) === totalItems-remainder;
     
     let resultText = '';
-    // if (isComplete) {
-    //     resultText = `Perfect! Each group has ${itemsPerGroup} pencils, with ${remainder} left over.`;
-    // } else {
-    //     resultText = `You need to distribute all ${totalItems} pencils into ${totalGroups} groups.`;
-    // }
+    if (isComplete) {
+        resultText = `Perfect! Each group has ${itemsPerGroup} pencils, with ${remainder} left over.`;
+    } else {
+        resultText = `You need to distribute all ${totalItems} pencils into ${totalGroups} groups.`;
+    }
     
     document.getElementById('sharing-result').textContent = resultText;
 }
@@ -218,7 +217,7 @@ function initGrouping() {
     }
 }
 
-// Render visual groups (colored circles around complete groups)
+// 重写 Render visual groups 函数，精准计算组的边界
 function renderVisualGroups(itemsPerGroup) {
     const visualGroupsContainer = document.getElementById('visual-groups');
     visualGroupsContainer.innerHTML = ''; // Clear existing groups
@@ -233,7 +232,7 @@ function renderVisualGroups(itemsPerGroup) {
     
     // Create visual groups for each complete group
     for (let groupNum = 0; groupNum < totalCompleteGroups; groupNum++) {
-        // Get items in this group (e.g., group 0 = items 0-2, group 1 = 3-5 for 3 items/group)
+        // Get items in this group
         const groupItems = selectedElements.slice(
             groupNum * itemsPerGroup, 
             (groupNum + 1) * itemsPerGroup
@@ -241,39 +240,40 @@ function renderVisualGroups(itemsPerGroup) {
         
         if (groupItems.length < itemsPerGroup) continue;
         
-        // Calculate center position of the group
-        let totalX = 0, totalY = 0;
-        let maxWidth = 0, maxHeight = 0;
+        // ------------ 核心修改：计算整个组的实际边界 ------------
+        const containerRect = document.getElementById('grouping-container').getBoundingClientRect();
+        let minX = Infinity, minY = Infinity;
+        let maxX = -Infinity, maxY = -Infinity;
         
+        // 遍历组内所有橡皮，找到最外边界
         groupItems.forEach(item => {
             const rect = item.getBoundingClientRect();
-            const containerRect = document.getElementById('grouping-container').getBoundingClientRect();
+            // 计算相对于容器的坐标（包含额外边距，让边框不贴紧橡皮）
+            const itemX = rect.left - containerRect.left - 8;  // 向左扩展8px
+            const itemY = rect.top - containerRect.top - 8;    // 向上扩展8px
+            const itemRight = rect.right - containerRect.left + 8; // 向右扩展8px
+            const itemBottom = rect.bottom - containerRect.top + 8; // 向下扩展8px
             
-            // Position relative to container
-            const x = rect.left - containerRect.left + rect.width / 2;
-            const y = rect.top - containerRect.top + rect.height / 2;
-            
-            totalX += x;
-            totalY += y;
-            
-            maxWidth = Math.max(maxWidth, rect.width);
-            maxHeight = Math.max(maxHeight, rect.height);
+            // 更新组的最小/最大边界
+            minX = Math.min(minX, itemX);
+            minY = Math.min(minY, itemY);
+            maxX = Math.max(maxX, itemRight);
+            maxY = Math.max(maxY, itemBottom);
         });
         
-        // Center of the group
-        const centerX = totalX / groupItems.length;
-        const centerY = totalY / groupItems.length;
+        // 计算矩形的宽高和位置
+        const groupWidth = maxX - minX;
+        const groupHeight = maxY - minY;
         
-        // Size of the circle (big enough to cover all items in the group)
-        const groupSize = Math.max(maxWidth, maxHeight) * 1.8 + (itemsPerGroup > 3 ? 20 : 10);
-        
-        // Create visual group circle
+        // ------------ 创建圆角矩形视觉容器 ------------
         const visualGroup = document.createElement('div');
         visualGroup.className = 'visual-group';
-        visualGroup.style.width = `${groupSize}px`;
-        visualGroup.style.height = `${groupSize}px`;
-        visualGroup.style.left = `${centerX - groupSize/2}px`;
-        visualGroup.style.top = `${centerY - groupSize/2}px`;
+        // 设置位置和尺寸（精准贴合组边界）
+        visualGroup.style.left = `${minX}px`;
+        visualGroup.style.top = `${minY}px`;
+        visualGroup.style.width = `${groupWidth}px`;
+        visualGroup.style.height = `${groupHeight}px`;
+        // 颜色和文字
         visualGroup.style.borderColor = groupColors[groupNum % groupColors.length];
         visualGroup.textContent = `Group ${groupNum + 1}`;
         
