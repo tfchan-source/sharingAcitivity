@@ -218,19 +218,22 @@ h2, h3 {
     width: 80px;
     height: 80px;
     background-color: transparent;
-    color: #e74c3c;
+    color: #e74c3c; /* 篮球颜色（红色系） */
     border: none;
     border-radius: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: grab;
+    cursor: pointer; /* 点击交互 */
     font-size: 50px;
     transition: transform 0.2s;
+    position: relative; /* 层级定位 */
+    z-index: 10; /* 确保篮球在视觉分组上方 */
 }
 
 .grouping-item.selected {
-    background-color: transparent;
+    background-color: transparent; /* 修复拼写错误 */
+    transform: scale(0.95); /* 选中时缩小，视觉反馈 */
 }
 
 /* Visual Group Circles (Colored Borders) */
