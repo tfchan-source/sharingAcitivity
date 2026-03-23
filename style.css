@@ -246,9 +246,10 @@ h2, h3 {
     z-index: 0;
 }
 
+/* 替换原有 .visual-group 样式 */
 .visual-group {
     position: absolute;
-    border-radius: 50%;
+    border-radius: 12px; /* 圆角矩形 */
     border: 4px solid;
     display: flex;
     justify-content: center;
@@ -257,7 +258,13 @@ h2, h3 {
     color: #2c3e50;
     background-color: rgba(255,255,255,0.5);
     z-index: 0;
+    /* 文字居中，避免遮挡 */
+    font-size: 14px;
+    padding: 5px;
+    box-sizing: border-box;
 }
+
+/* 保留其他样式不变 */
 
 /* Result Section */
 .result {
