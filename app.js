@@ -23,7 +23,7 @@ function updateGroupCounters() {
     sharingGroups.forEach((group, index) => {
         const counterElement = document.querySelector(`.group[data-index="${index}"] + .group-counter`);
         if (counterElement) {
-            counterElement.textContent = `Count: ${group.length}`;
+            counterElement.textContent = `${group.length}`;
         }
     });
 }
@@ -32,7 +32,7 @@ function updateGroupCounters() {
 function initSharing() {
     if (!document.getElementById('sharing-items')) return;
     
-    const itemCount = parseInt(document.getElementById('item-count-sharing').value) || 10;
+    const itemCount = parseInt(document.getElementById('item-count-sharing').value) || 3;
     const groupCount = parseInt(document.getElementById('group-count-sharing').value) || 3;
     
     // Reset arrays
@@ -125,7 +125,7 @@ function initSharing() {
         // 🔥 Create counter element for the group
         const counter = document.createElement('div');
         counter.className = 'group-counter';
-        counter.textContent = `Count: 0`; // Initial count = 0
+        counter.textContent = `0`; // Initial count = 0
         
         // Add group + counter to wrapper
         groupWrapper.appendChild(group);
@@ -145,13 +145,13 @@ function updateSharingResult() {
     const remainder = totalItems % totalGroups;
     
     let currentDistribution = sharingGroups.map(group => group.length);
-    let isComplete = currentDistribution.reduce((sum, count) => sum + count, 0) === totalItems;
+    let isComplete = currentDistribution.reduce((sum, count) => sum + count, 0) === totalItems-remainder;
     
     let resultText = '';
     if (isComplete) {
-        resultText = `Perfect! Each group has ${itemsPerGroup} pencils, with ${remainder} left over. (Total: ${totalItems} ÷ ${totalGroups} = ${itemsPerGroup} remainder ${remainder})`;
+        resultText = `Perfect! Each group has ${itemsPerGroup} pencils, with ${remainder} left over.`;
     } else {
-        resultText = `Keep sharing! You need to distribute all ${totalItems} pencils into ${totalGroups} groups.`;
+        resultText = `You need to distribute all ${totalItems} pencils into ${totalGroups} groups.`;
     }
     
     document.getElementById('sharing-result').textContent = resultText;
