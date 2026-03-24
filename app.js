@@ -57,7 +57,7 @@ function initSharing() {
         const item = document.createElement('div');
         item.className = 'item';
         item.draggable = true;
-        item.textContent = '✏️';
+        item.textContent = '🥗';
         item.dataset.id = i;
         
         // Drag event listeners
@@ -189,7 +189,7 @@ function initGrouping() {
     for (let i = 1; i <= itemCount; i++) {
         const item = document.createElement('div');
         item.className = 'grouping-item';
-        item.textContent = '🏀';
+        item.textContent = '🏸';
         item.dataset.id = i;
         
         // Click event to select/deselect
