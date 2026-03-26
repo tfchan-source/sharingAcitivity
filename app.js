@@ -148,9 +148,11 @@ function updateSharingResult() {
     
     let resultText = '';
     if (isComplete) {
-        resultText = `Perfect! Each group has ${itemsPerGroup} pencils, with ${remainder} left over.`;
+        resultText = ` `;
+        //resultText = `Perfect! Each group has ${itemsPerGroup} pencils, with ${remainder} left over.`;
     } else {
-        resultText = `You need to distribute all ${totalItems} pencils into ${totalGroups} groups.`;
+        //resultText = `You need to distribute all ${totalItems} pencils into ${totalGroups} groups.`;
+        resultText = ` `;
     }
     
     document.getElementById('sharing-result').textContent = resultText;
